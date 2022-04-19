@@ -1,0 +1,3 @@
+bucket = "tfstates-depot-bucket"
+key    = "staging/terraform-tips/ap-northeast-1.tfstate"
+region = "ap-northeast-1"
