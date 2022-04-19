@@ -13,6 +13,14 @@ Terraform will perform the following actions:
       + target_id        = (known after apply)
     }
 
+  # aws_alb_target_group_attachment.alb_web[1] will be created
+  + resource "aws_alb_target_group_attachment" "alb_web" {
+      + id               = (known after apply)
+      + port             = 80
+      + target_group_arn = (known after apply)
+      + target_id        = (known after apply)
+    }
+
   # aws_db_parameter_group.db_param will be created
   + resource "aws_db_parameter_group" "db_param" {
       + arn         = (known after apply)
@@ -57,26 +65,66 @@ Terraform will perform the following actions:
         }
     }
 
-  # aws_default_route_table.main will be created
-  + resource "aws_default_route_table" "main" {
-      + arn                    = (known after apply)
-      + default_route_table_id = (known after apply)
-      + id                     = (known after apply)
-      + owner_id               = (known after apply)
-      + route                  = (known after apply)
-      + tags                   = {
+  # aws_eip.natgateway_a will be created
+  + resource "aws_eip" "natgateway_a" {
+      + allocation_id        = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = (known after apply)
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + tags                 = {
           + "Env"     = "develop"
-          + "Name"    = "terraform-tips-dev-rtb"
+          + "Name"    = "terraform-tips-dev-ngw-a"
           + "Project" = "develop"
           + "Stage"   = "develop"
         }
-      + tags_all               = {
+      + tags_all             = {
           + "Env"     = "develop"
-          + "Name"    = "terraform-tips-dev-rtb"
+          + "Name"    = "terraform-tips-dev-ngw-a"
           + "Project" = "develop"
           + "Stage"   = "develop"
         }
-      + vpc_id                 = (known after apply)
+      + vpc                  = true
+    }
+
+  # aws_eip.natgateway_c will be created
+  + resource "aws_eip" "natgateway_c" {
+      + allocation_id        = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = (known after apply)
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + tags                 = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-ngw-c"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + tags_all             = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-ngw-c"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + vpc                  = true
     }
 
   # aws_instance.web[0] will be created
@@ -121,6 +169,114 @@ Terraform will perform the following actions:
       + tags_all                             = {
           + "Env"     = "develop"
           + "Name"    = "terraform-tips-dev-ec2-web-01"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = "94bd232efce1ccc715d077969ebe73fd132ce838"
+      + user_data_base64                     = (known after apply)
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification {
+          + capacity_reservation_preference = (known after apply)
+
+          + capacity_reservation_target {
+              + capacity_reservation_id = (known after apply)
+            }
+        }
+
+      + ebs_block_device {
+          + delete_on_termination = (known after apply)
+          + device_name           = (known after apply)
+          + encrypted             = (known after apply)
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + snapshot_id           = (known after apply)
+          + tags                  = (known after apply)
+          + throughput            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = (known after apply)
+          + volume_type           = (known after apply)
+        }
+
+      + enclave_options {
+          + enabled = (known after apply)
+        }
+
+      + ephemeral_block_device {
+          + device_name  = (known after apply)
+          + no_device    = (known after apply)
+          + virtual_name = (known after apply)
+        }
+
+      + metadata_options {
+          + http_endpoint               = (known after apply)
+          + http_put_response_hop_limit = (known after apply)
+          + http_tokens                 = (known after apply)
+          + instance_metadata_tags      = (known after apply)
+        }
+
+      + network_interface {
+          + delete_on_termination = (known after apply)
+          + device_index          = (known after apply)
+          + network_interface_id  = (known after apply)
+        }
+
+      + root_block_device {
+          + delete_on_termination = true
+          + device_name           = (known after apply)
+          + encrypted             = (known after apply)
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + throughput            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = 30
+          + volume_type           = "gp3"
+        }
+    }
+
+  # aws_instance.web[1] will be created
+  + resource "aws_instance" "web" {
+      + ami                                  = "ami-0d09f8d9512d684cb"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = false
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = (known after apply)
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-ec2-web-02"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + tags_all                             = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-ec2-web-02"
           + "Project" = "develop"
           + "Stage"   = "develop"
         }
@@ -240,12 +396,6 @@ Terraform will perform the following actions:
       + vpc_id                     = (known after apply)
       + zone_id                    = (known after apply)
 
-      + access_logs {
-          + bucket  = "tfstates-depot-bucket-poc"
-          + enabled = true
-          + prefix  = "AlbLogs"
-        }
-
       + subnet_mapping {
           + allocation_id        = (known after apply)
           + ipv6_address         = (known after apply)
@@ -347,6 +497,121 @@ Terraform will perform the following actions:
         }
     }
 
+  # aws_nat_gateway.main_a will be created
+  + resource "aws_nat_gateway" "main_a" {
+      + allocation_id        = (known after apply)
+      + connectivity_type    = "public"
+      + id                   = (known after apply)
+      + network_interface_id = (known after apply)
+      + private_ip           = (known after apply)
+      + public_ip            = (known after apply)
+      + subnet_id            = (known after apply)
+      + tags                 = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-ngw-a"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + tags_all             = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-ngw-a"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+    }
+
+  # aws_nat_gateway.main_c will be created
+  + resource "aws_nat_gateway" "main_c" {
+      + allocation_id        = (known after apply)
+      + connectivity_type    = "public"
+      + id                   = (known after apply)
+      + network_interface_id = (known after apply)
+      + private_ip           = (known after apply)
+      + public_ip            = (known after apply)
+      + subnet_id            = (known after apply)
+      + tags                 = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-ngw-c"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + tags_all             = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-ngw-c"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+    }
+
+  # aws_network_acl.private will be created
+  + resource "aws_network_acl" "private" {
+      + arn        = (known after apply)
+      + egress     = (known after apply)
+      + id         = (known after apply)
+      + ingress    = (known after apply)
+      + owner_id   = (known after apply)
+      + subnet_ids = (known after apply)
+      + tags       = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-acl-prv"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + tags_all   = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-acl-prv"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + vpc_id     = (known after apply)
+    }
+
+  # aws_network_acl.protected will be created
+  + resource "aws_network_acl" "protected" {
+      + arn        = (known after apply)
+      + egress     = (known after apply)
+      + id         = (known after apply)
+      + ingress    = (known after apply)
+      + owner_id   = (known after apply)
+      + subnet_ids = (known after apply)
+      + tags       = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-acl-prt"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + tags_all   = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-acl-prt"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + vpc_id     = (known after apply)
+    }
+
+  # aws_network_acl.public will be created
+  + resource "aws_network_acl" "public" {
+      + arn        = (known after apply)
+      + egress     = (known after apply)
+      + id         = (known after apply)
+      + ingress    = (known after apply)
+      + owner_id   = (known after apply)
+      + subnet_ids = (known after apply)
+      + tags       = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-acl-pub"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + tags_all   = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-acl-pub"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + vpc_id     = (known after apply)
+    }
+
   # aws_rds_cluster.db_cluster will be created
   + resource "aws_rds_cluster" "db_cluster" {
       + apply_immediately               = (known after apply)
@@ -441,6 +706,197 @@ Terraform will perform the following actions:
           + name         = "time_zone"
           + value        = "Asia/Tokyo"
         }
+    }
+
+  # aws_route.public will be created
+  + resource "aws_route" "public" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route_table.private will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-rtb-prv"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + tags_all         = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-rtb-prv"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.protected_a will be created
+  + resource "aws_route_table" "protected_a" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + carrier_gateway_id         = ""
+              + cidr_block                 = "0.0.0.0/0"
+              + destination_prefix_list_id = ""
+              + egress_only_gateway_id     = ""
+              + gateway_id                 = ""
+              + instance_id                = ""
+              + ipv6_cidr_block            = ""
+              + local_gateway_id           = ""
+              + nat_gateway_id             = (known after apply)
+              + network_interface_id       = ""
+              + transit_gateway_id         = ""
+              + vpc_endpoint_id            = ""
+              + vpc_peering_connection_id  = ""
+            },
+        ]
+      + tags             = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-rtb-prt-a"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + tags_all         = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-rtb-prt-a"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.protected_c will be created
+  + resource "aws_route_table" "protected_c" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + carrier_gateway_id         = ""
+              + cidr_block                 = "0.0.0.0/0"
+              + destination_prefix_list_id = ""
+              + egress_only_gateway_id     = ""
+              + gateway_id                 = ""
+              + instance_id                = ""
+              + ipv6_cidr_block            = ""
+              + local_gateway_id           = ""
+              + nat_gateway_id             = (known after apply)
+              + network_interface_id       = ""
+              + transit_gateway_id         = ""
+              + vpc_endpoint_id            = ""
+              + vpc_peering_connection_id  = ""
+            },
+        ]
+      + tags             = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-rtb-prt-c"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + tags_all         = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-rtb-prt-c"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + carrier_gateway_id         = ""
+              + cidr_block                 = "0.0.0.0/0"
+              + destination_prefix_list_id = ""
+              + egress_only_gateway_id     = ""
+              + gateway_id                 = (known after apply)
+              + instance_id                = ""
+              + ipv6_cidr_block            = ""
+              + local_gateway_id           = ""
+              + nat_gateway_id             = ""
+              + network_interface_id       = ""
+              + transit_gateway_id         = ""
+              + vpc_endpoint_id            = ""
+              + vpc_peering_connection_id  = ""
+            },
+        ]
+      + tags             = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-rtb-pub"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + tags_all         = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-rtb-pub"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.private_a will be created
+  + resource "aws_route_table_association" "private_a" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.private_c will be created
+  + resource "aws_route_table_association" "private_c" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.protected_a will be created
+  + resource "aws_route_table_association" "protected_a" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.protected_c will be created
+  + resource "aws_route_table_association" "protected_c" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public_a will be created
+  + resource "aws_route_table_association" "public_a" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public_c will be created
+  + resource "aws_route_table_association" "public_c" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
     }
 
   # aws_security_group.alb_web will be created
@@ -1059,7 +1515,7 @@ Terraform will perform the following actions:
       + web_acl_arn  = (known after apply)
     }
 
-Plan: 24 to add, 0 to change, 0 to destroy.
+Plan: 43 to add, 0 to change, 0 to destroy.
 
 Changes to Outputs:
   + aurora_endpint        = (known after apply)
