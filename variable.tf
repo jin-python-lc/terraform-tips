@@ -2,6 +2,7 @@ variable "aws" { type = map(any) }
 variable "region" { type = map(any) }
 variable "project" { type = map(any) }
 variable "stage" { type = map(any) }
+variable "vpc" { type = map(any) }
 variable "subnet" { type = map(any) }
 variable "health_check_path" { type = string }
 variable "web_access_src_cidr" { type = list(any) }

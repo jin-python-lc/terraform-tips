@@ -12,6 +12,9 @@ stage = {
   name       = "staging"
   short_name = "stg"
 }
+vpc = {
+  cidr = "30.0.0.0/16"
+}
 subnet = {
   public_a = {
     cidr = "20.0.0.0/27"

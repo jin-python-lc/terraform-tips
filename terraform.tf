@@ -11,4 +11,6 @@ terraform {
       source  = "hashicorp/time"
     }
   }
+
+  backend "s3" {}
 }

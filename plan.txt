@@ -81,7 +81,7 @@ Terraform will perform the following actions:
 
   # aws_instance.web[0] will be created
   + resource "aws_instance" "web" {
-      + ami                                  = "ami-03ededff12e34e59e "
+      + ami                                  = "ami-0d09f8d9512d684cb"
       + arn                                  = (known after apply)
       + associate_public_ip_address          = false
       + availability_zone                    = (known after apply)
@@ -241,7 +241,7 @@ Terraform will perform the following actions:
       + zone_id                    = (known after apply)
 
       + access_logs {
-          + bucket  = "tfstates-depot-bucket"
+          + bucket  = "tfstates-depot-bucket-poc"
           + enabled = true
           + prefix  = "AlbLogs"
         }
@@ -373,7 +373,7 @@ Terraform will perform the following actions:
       + id                              = (known after apply)
       + kms_key_id                      = (known after apply)
       + master_password                 = (sensitive value)
-      + master_username                 = "terraform@local"
+      + master_username                 = "TerraformLocal"
       + port                            = 3306
       + preferred_backup_window         = "19:30-20:00"
       + preferred_maintenance_window    = "tue:20:15-tue:20:45"
@@ -620,7 +620,7 @@ Terraform will perform the following actions:
       + assign_ipv6_address_on_creation                = false
       + availability_zone                              = "ap-northeast-1a"
       + availability_zone_id                           = (known after apply)
-      + cidr_block                                     = "10.0.0.128/27"
+      + cidr_block                                     = "192.0.0.128/27"
       + enable_dns64                                   = false
       + enable_resource_name_dns_a_record_on_launch    = false
       + enable_resource_name_dns_aaaa_record_on_launch = false
@@ -651,7 +651,7 @@ Terraform will perform the following actions:
       + assign_ipv6_address_on_creation                = false
       + availability_zone                              = "ap-northeast-1c"
       + availability_zone_id                           = (known after apply)
-      + cidr_block                                     = "10.0.0.160/27"
+      + cidr_block                                     = "192.0.0.160/27"
       + enable_dns64                                   = false
       + enable_resource_name_dns_a_record_on_launch    = false
       + enable_resource_name_dns_aaaa_record_on_launch = false
@@ -682,7 +682,7 @@ Terraform will perform the following actions:
       + assign_ipv6_address_on_creation                = false
       + availability_zone                              = "ap-northeast-1a"
       + availability_zone_id                           = (known after apply)
-      + cidr_block                                     = "10.0.0.64/27"
+      + cidr_block                                     = "192.0.0.64/27"
       + enable_dns64                                   = false
       + enable_resource_name_dns_a_record_on_launch    = false
       + enable_resource_name_dns_aaaa_record_on_launch = false
@@ -713,7 +713,7 @@ Terraform will perform the following actions:
       + assign_ipv6_address_on_creation                = false
       + availability_zone                              = "ap-northeast-1c"
       + availability_zone_id                           = (known after apply)
-      + cidr_block                                     = "10.0.0.96/27"
+      + cidr_block                                     = "192.0.0.96/27"
       + enable_dns64                                   = false
       + enable_resource_name_dns_a_record_on_launch    = false
       + enable_resource_name_dns_aaaa_record_on_launch = false
@@ -744,7 +744,7 @@ Terraform will perform the following actions:
       + assign_ipv6_address_on_creation                = false
       + availability_zone                              = "ap-northeast-1a"
       + availability_zone_id                           = (known after apply)
-      + cidr_block                                     = "10.0.0.0/27"
+      + cidr_block                                     = "192.0.0.0/27"
       + enable_dns64                                   = false
       + enable_resource_name_dns_a_record_on_launch    = false
       + enable_resource_name_dns_aaaa_record_on_launch = false
@@ -775,7 +775,7 @@ Terraform will perform the following actions:
       + assign_ipv6_address_on_creation                = false
       + availability_zone                              = "ap-northeast-1c"
       + availability_zone_id                           = (known after apply)
-      + cidr_block                                     = "10.0.0.32/27"
+      + cidr_block                                     = "192.0.0.32/27"
       + enable_dns64                                   = false
       + enable_resource_name_dns_a_record_on_launch    = false
       + enable_resource_name_dns_aaaa_record_on_launch = false
@@ -803,7 +803,7 @@ Terraform will perform the following actions:
   # aws_vpc.main will be created
   + resource "aws_vpc" "main" {
       + arn                                  = (known after apply)
-      + cidr_block                           = "10.0.0.0/16"
+      + cidr_block                           = "192.0.0.0/16"
       + default_network_acl_id               = (known after apply)
       + default_route_table_id               = (known after apply)
       + default_security_group_id            = (known after apply)

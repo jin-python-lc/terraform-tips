@@ -12,6 +12,9 @@ stage = {
   name       = "production"
   short_name = "prd"
 }
+vpc = {
+  cidr = "30.0.0.0/16"
+}
 subnet = {
   public_a = {
     cidr = "30.0.0.0/27"

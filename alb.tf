@@ -5,12 +5,12 @@ resource "aws_lb" "web" {
   subnets                          = [aws_subnet.public_a.id, aws_subnet.public_c.id]
   security_groups                  = [aws_security_group.alb_web.id]
   enable_deletion_protection       = false
-  enable_cross_zone_load_balancing = true
-  access_logs {
+  #enable_cross_zone_load_balancing = true
+  /* access_logs {
     bucket  = local.bucket
     prefix  = "AlbLogs"
     enabled = true
-  }
+  } */
 
   tags = merge(local.tags, map("Name", "${local.system_prefix}-alb-web"))
 }

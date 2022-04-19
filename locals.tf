@@ -9,5 +9,5 @@ locals {
     "0" = aws_subnet.protected_a.id
     "1" = aws_subnet.protected_c.id
   }
-  bucket = "tfstates-depot-bucket"
+  bucket = "tfstates-depot-bucket-poc"
 }

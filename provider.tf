@@ -1,6 +1,6 @@
 provider "aws" {
   region  = var.region.name
-  profile = "terraform@local"
+  profile = "terraform@local2"
 }
 
 /* provider "aws" {

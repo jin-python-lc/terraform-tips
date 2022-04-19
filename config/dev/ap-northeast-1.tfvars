@@ -1,5 +1,5 @@
 aws = {
-  account_id     = 449764311553
+  account_id     = 535401992203 #449764311553
 }
 region = {
   name       = "ap-northeast-1"
@@ -12,24 +12,27 @@ stage = {
   name       = "develop"
   short_name = "dev"
 }
+vpc = {
+  cidr = "192.0.0.0/16"
+}
 subnet = {
   public_a = {
-    cidr = "10.0.0.0/27"
+    cidr = "192.0.0.0/27"
   }
   public_c = {
-    cidr = "10.0.0.32/27"
+    cidr = "192.0.0.32/27"
   }
   protected_a = {
-    cidr = "10.0.0.64/27"
+    cidr = "192.0.0.64/27"
   }
   protected_c = {
-    cidr = "10.0.0.96/27"
+    cidr = "192.0.0.96/27"
   }
   private_a = {
-    cidr = "10.0.0.128/27"
+    cidr = "192.0.0.128/27"
   }
   private_c = {
-    cidr = "10.0.0.160/27"
+    cidr = "192.0.0.160/27"
   }
 }
 health_check_path = "/index.html"
@@ -37,16 +40,16 @@ web_access_src_cidr = [
   "0.0.0.0/0"
 ]
 ec2 = {
-  ami_id             = "ami-03ededff12e34e59e "
+  ami_id             = "ami-0d09f8d9512d684cb"
   http_port          = 80
-  web_count          = 1
+  web_count          = 2
   web_instance_type  = "t2.micro"
   web_volume_size    = 30
 }
 rds_instance_type = "db.t3.small"
 rds = {
-  username = "terraform@local"
-  password = "P@ssW0rd"
+  username = "TerraformLocal"
+  password = "PassWord0000"
 }
 
 alb_rules = [
