@@ -30,3 +30,18 @@ resource "aws_instance" "web" {
     ]
   }
 }
+
+resource "aws_instance" "maintenance" {
+  ami                         = var.ec2.ami_id
+  instance_type               = var.ec2.web_instance_type
+  subnet_id                   = aws_subnet.public_a.id
+  associate_public_ip_address = true
+  vpc_security_group_ids      = [aws_security_group.maintenance.id]
+
+  tags = merge(local.tags, map("Name", "${local.system_prefix}-ec2-maintenance"))
+  lifecycle {
+    ignore_changes = [
+      ami
+    ]
+  }
+}

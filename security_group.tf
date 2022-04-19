@@ -33,6 +33,13 @@ resource "aws_security_group" "ec2_web" {
   }
 
   ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    security_groups = [aws_security_group.maintenance.id]
+  }
+
+  ingress {
     description = "SSH"
     from_port   = 22
     to_port     = 22
@@ -48,6 +55,29 @@ resource "aws_security_group" "ec2_web" {
   }
 
   tags = merge(local.tags, map("Name", "${local.system_prefix}-ec2-web"))
+}
+
+resource "aws_security_group" "maintenance" {
+  name        = "${local.system_prefix}-ec2-maintenance-sg"
+  description = "${local.system_prefix}-ec2-maintenance-sg"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = merge(local.tags, map("Name", "${local.system_prefix}-ec2-maintenance"))
 }
 
 resource "aws_security_group" "rds" {
