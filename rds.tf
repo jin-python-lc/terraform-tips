@@ -55,7 +55,7 @@ resource "aws_rds_cluster" "db_cluster" {
   vpc_security_group_ids          = [aws_security_group.rds.id]
   db_subnet_group_name            = aws_db_subnet_group.db_subnetg.name
   storage_encrypted               = true
-  db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.sej_cluster_param.name
+  db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.cluster_param.name
   copy_tags_to_snapshot           = true
   engine_version                  = "5.7.mysql_aurora.2.09.2"
   engine                          = "aurora-mysql"
@@ -67,12 +67,12 @@ resource "aws_rds_cluster" "db_cluster" {
 resource "aws_rds_cluster_instance" "db_add" {
   count                      = var.stage.short_name == "prd" ? 1 : 0
   identifier                 = "${local.system_prefix}-rds-${format("%02d", count.index + 1)}"
-  cluster_identifier         = aws_rds_cluster.sej_db_cluster.id
+  cluster_identifier         = aws_rds_cluster.db_cluster.id
   instance_class             = var.rds_instance_type
   engine_version             = "5.7.mysql_aurora.2.09.2"
   engine                     = "aurora-mysql"
   auto_minor_version_upgrade = false
-  db_parameter_group_name    = aws_db_parameter_group.sej_param.name
+  db_parameter_group_name    = aws_db_parameter_group.param.name
 
   tags = merge(local.tags, map("Name", "${local.system_prefix}-rds-${format("%02d", count.index + 1)}"))
 }
@@ -80,8 +80,8 @@ resource "aws_rds_cluster_instance" "db_add" {
 
 
 output "aurora_endpint" {
-  value = aws_rds_cluster.sej_db_cluster.endpoint
+  value = aws_rds_cluster.db_cluster.endpoint
 }
 output "aurora_reader_endpint" {
-  value = aws_rds_cluster.sej_db_cluster.reader_endpoint
+  value = aws_rds_cluster.db_cluster.reader_endpoint
 }
