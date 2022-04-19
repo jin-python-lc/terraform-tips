@@ -13,8 +13,8 @@ Terraform will perform the following actions:
       + target_id        = (known after apply)
     }
 
-  # aws_db_parameter_group.sej_param will be created
-  + resource "aws_db_parameter_group" "sej_param" {
+  # aws_db_parameter_group.db_param will be created
+  + resource "aws_db_parameter_group" "db_param" {
       + arn         = (known after apply)
       + description = "Managed by Terraform"
       + family      = "aurora-mysql5.7"
@@ -347,8 +347,8 @@ Terraform will perform the following actions:
         }
     }
 
-  # aws_rds_cluster.sej_db_cluster will be created
-  + resource "aws_rds_cluster" "sej_db_cluster" {
+  # aws_rds_cluster.db_cluster will be created
+  + resource "aws_rds_cluster" "db_cluster" {
       + apply_immediately               = (known after apply)
       + arn                             = (known after apply)
       + availability_zones              = (known after apply)
@@ -395,8 +395,8 @@ Terraform will perform the following actions:
       + vpc_security_group_ids          = (known after apply)
     }
 
-  # aws_rds_cluster_parameter_group.sej_cluster_param will be created
-  + resource "aws_rds_cluster_parameter_group" "sej_cluster_param" {
+  # aws_rds_cluster_parameter_group.db_cluster_param will be created
+  + resource "aws_rds_cluster_parameter_group" "db_cluster_param" {
       + arn         = (known after apply)
       + description = "Managed by Terraform"
       + family      = "aurora-mysql5.7"
