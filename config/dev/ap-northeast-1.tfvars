@@ -1,5 +1,5 @@
 aws = {
-  account_id     = 535401992203 #449764311553
+  account_id     = 535401992203
 }
 region = {
   name       = "ap-northeast-1"
