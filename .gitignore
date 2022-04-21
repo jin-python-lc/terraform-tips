@@ -3,5 +3,3 @@
 *.tfstate.*
 .terraform.lock.hcl
 .env
-main.tf
-modules/*
