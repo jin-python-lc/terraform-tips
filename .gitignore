@@ -4,4 +4,4 @@
 .terraform.lock.hcl
 .env
 main.tf
-modules
+modules/*
