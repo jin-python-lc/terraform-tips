@@ -32,6 +32,13 @@ resource "aws_security_group" "ec2_web" {
     security_groups = [aws_security_group.alb_web.id]
   }
 
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = [aws_subnet.public_a.cidr_block, aws_subnet.public_c.cidr_block]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0

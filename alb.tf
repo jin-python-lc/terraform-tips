@@ -6,11 +6,11 @@ resource "aws_lb" "web" {
   security_groups                  = [aws_security_group.alb_web.id]
   enable_deletion_protection       = false
   enable_cross_zone_load_balancing = true
-  /* access_logs {
+  access_logs {
     bucket  = local.bucket
-    prefix  = "AlbLogs"
+    prefix  = "ALBLog"
     enabled = true
-  } */
+  }
 
   tags = merge(local.tags, map("Name", "${local.system_prefix}-alb-web"))
 }

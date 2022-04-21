@@ -516,6 +516,12 @@ Terraform will perform the following actions:
       + vpc_id                     = (known after apply)
       + zone_id                    = (known after apply)
 
+      + access_logs {
+          + bucket  = "tfstates-depot-bucket-poc"
+          + enabled = true
+          + prefix  = "ALBLog"
+        }
+
       + subnet_mapping {
           + allocation_id        = (known after apply)
           + ipv6_address         = (known after apply)
@@ -663,13 +669,13 @@ Terraform will perform the following actions:
         }
     }
 
-  # aws_network_acl.private will be created
-  + resource "aws_network_acl" "private" {
+  # aws_network_acl.private_a will be created
+  + resource "aws_network_acl" "private_a" {
       + arn        = (known after apply)
       + egress     = [
           + {
               + action          = "allow"
-              + cidr_block      = "192.0.0.96/27"
+              + cidr_block      = "192.0.0.64/27"
               + from_port       = 3306
               + icmp_code       = null
               + icmp_type       = null
@@ -697,13 +703,60 @@ Terraform will perform the following actions:
       + subnet_ids = (known after apply)
       + tags       = {
           + "Env"     = "develop"
-          + "Name"    = "terraform-tips-dev-acl-prv"
+          + "Name"    = "terraform-tips-dev-acl-prv-a"
           + "Project" = "develop"
           + "Stage"   = "develop"
         }
       + tags_all   = {
           + "Env"     = "develop"
-          + "Name"    = "terraform-tips-dev-acl-prv"
+          + "Name"    = "terraform-tips-dev-acl-prv-a"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + vpc_id     = (known after apply)
+    }
+
+  # aws_network_acl.private_c will be created
+  + resource "aws_network_acl" "private_c" {
+      + arn        = (known after apply)
+      + egress     = [
+          + {
+              + action          = "allow"
+              + cidr_block      = "192.0.0.96/27"
+              + from_port       = 3306
+              + icmp_code       = null
+              + icmp_type       = null
+              + ipv6_cidr_block = ""
+              + protocol        = "tcp"
+              + rule_no         = 101
+              + to_port         = 3306
+            },
+        ]
+      + id         = (known after apply)
+      + ingress    = [
+          + {
+              + action          = "allow"
+              + cidr_block      = "192.0.0.96/27"
+              + from_port       = 3306
+              + icmp_code       = null
+              + icmp_type       = null
+              + ipv6_cidr_block = ""
+              + protocol        = "tcp"
+              + rule_no         = 100
+              + to_port         = 3306
+            },
+        ]
+      + owner_id   = (known after apply)
+      + subnet_ids = (known after apply)
+      + tags       = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-acl-prv-c"
+          + "Project" = "develop"
+          + "Stage"   = "develop"
+        }
+      + tags_all   = {
+          + "Env"     = "develop"
+          + "Name"    = "terraform-tips-dev-acl-prv-c"
           + "Project" = "develop"
           + "Stage"   = "develop"
         }
@@ -716,7 +769,7 @@ Terraform will perform the following actions:
       + egress     = [
           + {
               + action          = "allow"
-              + cidr_block      = "192.0.0.0/27"
+              + cidr_block      = "0.0.0.0/0"
               + from_port       = 0
               + icmp_code       = null
               + icmp_type       = null
@@ -730,7 +783,7 @@ Terraform will perform the following actions:
       + ingress    = [
           + {
               + action          = "allow"
-              + cidr_block      = "192.0.0.0/27"
+              + cidr_block      = "0.0.0.0/0"
               + from_port       = 0
               + icmp_code       = null
               + icmp_type       = null
@@ -763,7 +816,7 @@ Terraform will perform the following actions:
       + egress     = [
           + {
               + action          = "allow"
-              + cidr_block      = "192.0.0.32/27"
+              + cidr_block      = "0.0.0.0/0"
               + from_port       = 0
               + icmp_code       = null
               + icmp_type       = null
@@ -777,7 +830,7 @@ Terraform will perform the following actions:
       + ingress    = [
           + {
               + action          = "allow"
-              + cidr_block      = "192.0.0.32/27"
+              + cidr_block      = "0.0.0.0/0"
               + from_port       = 0
               + icmp_code       = null
               + icmp_type       = null
@@ -791,13 +844,13 @@ Terraform will perform the following actions:
       + subnet_ids = (known after apply)
       + tags       = {
           + "Env"     = "develop"
-          + "Name"    = "terraform-tips-dev-acl-prt"
+          + "Name"    = "terraform-tips-dev-acl-prt-c"
           + "Project" = "develop"
           + "Stage"   = "develop"
         }
       + tags_all   = {
           + "Env"     = "develop"
-          + "Name"    = "terraform-tips-dev-acl-prt"
+          + "Name"    = "terraform-tips-dev-acl-prt-c"
           + "Project" = "develop"
           + "Stage"   = "develop"
         }
@@ -1213,6 +1266,20 @@ Terraform will perform the following actions:
         ]
       + id                     = (known after apply)
       + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "192.0.0.0/27",
+                  + "192.0.0.32/27",
+                ]
+              + description      = ""
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+            },
           + {
               + cidr_blocks      = []
               + description      = ""
@@ -1684,7 +1751,7 @@ Terraform will perform the following actions:
 
       + rule {
           + name     = "AWS-AWSManagedRulesAdminProtectionRuleSet"
-          + priority = 5
+          + priority = 3
 
           + override_action {
 
@@ -1706,31 +1773,8 @@ Terraform will perform the following actions:
             }
         }
       + rule {
-          + name     = "AWS-AWSManagedRulesAmazonIpReputationList"
-          + priority = 0
-
-          + override_action {
-
-              + none {}
-            }
-
-          + statement {
-
-              + managed_rule_group_statement {
-                  + name        = "AWSManagedRulesAmazonIpReputationList"
-                  + vendor_name = "AWS"
-                }
-            }
-
-          + visibility_config {
-              + cloudwatch_metrics_enabled = true
-              + metric_name                = "AWSManagedRulesAmazonIpReputationList"
-              + sampled_requests_enabled   = true
-            }
-        }
-      + rule {
           + name     = "AWS-AWSManagedRulesCommonRuleSet"
-          + priority = 6
+          + priority = 4
 
           + override_action {
 
@@ -1742,25 +1786,6 @@ Terraform will perform the following actions:
               + managed_rule_group_statement {
                   + name        = "AWSManagedRulesCommonRuleSet"
                   + vendor_name = "AWS"
-
-                  + excluded_rule {
-                      + name = "CrossSiteScripting_BODY"
-                    }
-                  + excluded_rule {
-                      + name = "EC2MetaDataSSRF_URIPATH"
-                    }
-                  + excluded_rule {
-                      + name = "GenericRFI_BODY"
-                    }
-                  + excluded_rule {
-                      + name = "GenericRFI_QUERYARGUMENTS"
-                    }
-                  + excluded_rule {
-                      + name = "NoUserAgent_HEADER"
-                    }
-                  + excluded_rule {
-                      + name = "SizeRestrictions_BODY"
-                    }
                 }
             }
 
@@ -1772,7 +1797,7 @@ Terraform will perform the following actions:
         }
       + rule {
           + name     = "AWS-AWSManagedRulesKnownBadInputsRuleSet"
-          + priority = 1
+          + priority = 0
 
           + override_action {
 
@@ -1794,31 +1819,8 @@ Terraform will perform the following actions:
             }
         }
       + rule {
-          + name     = "AWS-AWSManagedRulesPHPRuleSet"
-          + priority = 3
-
-          + override_action {
-
-              + none {}
-            }
-
-          + statement {
-
-              + managed_rule_group_statement {
-                  + name        = "AWSManagedRulesPHPRuleSet"
-                  + vendor_name = "AWS"
-                }
-            }
-
-          + visibility_config {
-              + cloudwatch_metrics_enabled = true
-              + metric_name                = "AWSManagedRulesPHPRuleSet"
-              + sampled_requests_enabled   = true
-            }
-        }
-      + rule {
           + name     = "AWS-AWSManagedRulesSQLiRuleSet"
-          + priority = 4
+          + priority = 2
 
           + override_action {
 
@@ -1830,10 +1832,6 @@ Terraform will perform the following actions:
               + managed_rule_group_statement {
                   + name        = "AWSManagedRulesSQLiRuleSet"
                   + vendor_name = "AWS"
-
-                  + excluded_rule {
-                      + name = "SQLi_BODY"
-                    }
                 }
             }
 
@@ -1845,7 +1843,7 @@ Terraform will perform the following actions:
         }
       + rule {
           + name     = "AWS-AWSManagedRulesUnixRuleSet"
-          + priority = 2
+          + priority = 1
 
           + override_action {
 
@@ -1881,7 +1879,7 @@ Terraform will perform the following actions:
       + web_acl_arn  = (known after apply)
     }
 
-Plan: 54 to add, 0 to change, 0 to destroy.
+Plan: 55 to add, 0 to change, 0 to destroy.
 
 Changes to Outputs:
   + aurora_endpint        = (known after apply)

@@ -54,20 +54,9 @@ rds = {
 
 alb_rules = [
   {
-    name                                     = "AWS-AWSManagedRulesAmazonIpReputationList"
+    name                                     = "AWS-AWSManagedRulesKnownBadInputsRuleSet"
     priority                                 = 0
     version                                  = null
-    override_action_none                     = ["true"]
-    override_action_count                    = []
-    managed_rule_group_statement_name        = "AWSManagedRulesAmazonIpReputationList"
-    managed_rule_group_statement_vendor_name = "AWS"
-    metric_name                              = "AWSManagedRulesAmazonIpReputationList"
-    excluded_rule                            = []
-  },
-  {
-    name                                     = "AWS-AWSManagedRulesKnownBadInputsRuleSet"
-    priority                                 = 1
-    version                                  = null #Version_1.14
     override_action_none                     = ["true"]
     override_action_count                    = [] 
     managed_rule_group_statement_name        = "AWSManagedRulesKnownBadInputsRuleSet"
@@ -77,7 +66,7 @@ alb_rules = [
   },
   {
     name                                     = "AWS-AWSManagedRulesUnixRuleSet"
-    priority                                 = 2
+    priority                                 = 1
     version                                  = null
     override_action_none                     = ["true"]
     override_action_count                    = []
@@ -87,32 +76,19 @@ alb_rules = [
     excluded_rule                            = []
   },
   {
-    name                                     = "AWS-AWSManagedRulesPHPRuleSet"
-    priority                                 = 3
-    version                                  = null
-    override_action_none                     = ["true"]
-    override_action_count                    = []
-    managed_rule_group_statement_name        = "AWSManagedRulesPHPRuleSet"
-    managed_rule_group_statement_vendor_name = "AWS"
-    metric_name                              = "AWSManagedRulesPHPRuleSet"
-    excluded_rule                            = []
-  },
-  {
     name                                     = "AWS-AWSManagedRulesSQLiRuleSet"
-    priority                                 = 4
-    version                                  = null #Version_1.1
+    priority                                 = 2
+    version                                  = null
     override_action_none                     = ["true"]
     override_action_count                    = [] 
     managed_rule_group_statement_name        = "AWSManagedRulesSQLiRuleSet"
     managed_rule_group_statement_vendor_name = "AWS"
     metric_name                              = "AWSManagedRulesSQLiRuleSet"
-    excluded_rule = [
-      "SQLi_BODY"
-    ]
+    excluded_rule                            = []
   },
   {
     name                                     = "AWS-AWSManagedRulesAdminProtectionRuleSet"
-    priority                                 = 5
+    priority                                 = 3
     version                                  = null
     override_action_none                     = ["true"]
     override_action_count                    = []
@@ -123,20 +99,13 @@ alb_rules = [
   },
   {
     name                                     = "AWS-AWSManagedRulesCommonRuleSet"
-    priority                                 = 6
-    version                                  = null #Version_1.2
+    priority                                 = 4
+    version                                  = null
     override_action_none                     = ["true"]
     override_action_count                    = [] 
     managed_rule_group_statement_name        = "AWSManagedRulesCommonRuleSet"
     managed_rule_group_statement_vendor_name = "AWS"
     metric_name                              = "AWSManagedRulesCommonRuleSet"
-    excluded_rule = [
-      "CrossSiteScripting_BODY",
-      "EC2MetaDataSSRF_URIPATH",
-      "GenericRFI_BODY",
-      "GenericRFI_QUERYARGUMENTS",
-      "NoUserAgent_HEADER",
-      "SizeRestrictions_BODY"
-    ]
+    excluded_rule                            = []
   },
 ]

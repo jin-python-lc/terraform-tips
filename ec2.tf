@@ -5,8 +5,8 @@ resource "aws_instance" "web" {
   subnet_id                   = local.protected_subnets[count.index % 2]
   associate_public_ip_address = false
   vpc_security_group_ids      = [aws_security_group.ec2_web.id]
-  iam_instance_profile = aws_iam_instance_profile.systems_manager.name
-  user_data            = <<EOF
+  iam_instance_profile        = aws_iam_instance_profile.systems_manager.name
+  user_data                   = <<EOF
   #!/bin/bash
   yum update -y
   yum install -y httpd

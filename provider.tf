@@ -5,17 +5,9 @@ provider "aws" {
 
 /* provider "aws" {
   region = var.region.name
+  # codebuildにアタッチされているRoleをAdmin相当Roleの信頼関係に追加する
   assume_role {
     role_arn     = "arn:aws:iam::${var.aws.account_id}:role/AdminForTerraform"
     session_name = "aws"
-  }
-}
-
-provider "aws" {
-  alias  = "us"
-  region = "us-east-1"
-  assume_role {
-    role_arn     = "arn:aws:iam::${var.aws.account_id}:role/AdminForTerraform"
-    session_name = "aws_us"
   }
 } */
