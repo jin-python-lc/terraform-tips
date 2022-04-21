@@ -1,3 +1,26 @@
 # Diagram
 ![a](https://user-images.githubusercontent.com/85344890/164376863-9c2501f0-212b-4b5c-a9f4-10438992df5e.jpg)
 ![diagram](https://user-images.githubusercontent.com/85344890/164381403-b94285f9-e540-4f78-923b-6776c933ff30.jpg)
+
+# Apply
+<img width="822" alt="スクリーンショット 2022-04-21 13 00 27" src="https://user-images.githubusercontent.com/85344890/164381564-e070bc14-5390-4c9c-8035-53d0a4e455f0.png">
+
+# ALB operation
+<img width="843" alt="スクリーンショット 2022-04-21 13 00 57" src="https://user-images.githubusercontent.com/85344890/164381621-b024640a-b297-405a-b39a-637f96483725.png">
+<img width="830" alt="スクリーンショット 2022-04-21 13 09 36" src="https://user-images.githubusercontent.com/85344890/164381646-c3214dff-5c43-4455-8a69-1e58b1b3bbdb.png">
+
+# ALB logs
+<img width="1593" alt="スクリーンショット 2022-04-21 13 07 43" src="https://user-images.githubusercontent.com/85344890/164381790-5566505a-25f2-4984-8b65-c451fbb7ae34.png">
+
+``` alb.log
+http 2022-04-21T04:00:47.677335Z app/terraform-tips-dev-alb-web/450cd8175f4b3aad 106.72.163.65:6703 192.0.0.92:80 0.015 0.001 0.000 200 200 505 323 "GET http://terraform-tips-dev-alb-web-1596949353.ap-northeast-1.elb.amazonaws.com:80/ HTTP/1.1" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36" - - arn:aws:elasticloadbalancing:ap-northeast-1:535401992203:targetgroup/terraform-tips-dev-tg-ec2-web/3862851be6f386d7 "Root=1-6260d6ef-6897c0dd479683955be26ba6" "-" "-" 99 2022-04-21T04:00:47.661000Z "waf,forward" "-" "-" "192.0.0.92:80" "200" "-" "-"
+http 2022-04-21T04:00:48.211679Z app/terraform-tips-dev-alb-web/450cd8175f4b3aad 106.72.163.65:6703 192.0.0.108:80 0.003 0.002 0.000 404 404 504 375 "GET http://terraform-tips-dev-alb-web-1596949353.ap-northeast-1.elb.amazonaws.com:80/favicon.ico HTTP/1.1" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36" - - arn:aws:elasticloadbalancing:ap-northeast-1:535401992203:targetgroup/terraform-tips-dev-tg-ec2-web/3862851be6f386d7 "Root=1-6260d6f0-2c0cf32a6daee1e84c6db730" "-" "-" 99 2022-04-21T04:00:48.206000Z "waf,forward" "-" "-" "192.0.0.108:80" "404" "-" "-"
+http 2022-04-21T04:00:59.176494Z app/terraform-tips-dev-alb-web/450cd8175f4b3aad 106.72.163.65:6703 192.0.0.92:80 0.001 0.001 0.000 304 304 616 227 "GET http://terraform-tips-dev-alb-web-1596949353.ap-northeast-1.elb.amazonaws.com:80/ HTTP/1.1" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36" - - arn:aws:elasticloadbalancing:ap-northeast-1:535401992203:targetgroup/terraform-tips-dev-tg-ec2-web/3862851be6f386d7 "Root=1-6260d6fb-7ac1c888494366f22943761e" "-" "-" 99 2022-04-21T04:00:59.174000Z "waf,forward" "-" "-" "192.0.0.92:80" "304" "-" "-"
+http 2022-04-21T04:01:00.953474Z app/terraform-tips-dev-alb-web/450cd8175f4b3aad 106.72.163.65:6703 192.0.0.108:80 0.003 0.002 0.000 200 200 616 324 "GET http://terraform-tips-dev-alb-web-1596949353.ap-northeast-1.elb.amazonaws.com:80/ HTTP/1.1" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36" - - arn:aws:elasticloadbalancing:ap-northeast-1:535401992203:targetgroup/terraform-tips-dev-tg-ec2-web/3862851be6f386d7 "Root=1-6260d6fc-38e665442804712870f72a08" "-" "-" 99 2022-04-21T04:01:00.948000Z "waf,forward" "-" "-" "192.0.0.108:80" "200" "-" "-"
+http 2022-04-21T04:01:32.464671Z app/terraform-tips-dev-alb-web/450cd8175f4b3aad 192.241.217.162:53916 - -1 -1 -1 403 - 110 271 "GET http://52.194.163.12:80/ HTTP/1.1" "Mozilla/5.0 zgrab/0.x" - - arn:aws:elasticloadbalancing:ap-northeast-1:535401992203:targetgroup/terraform-tips-dev-tg-ec2-web/3862851be6f386d7 "Root=1-6260d71c-36b19b356a1d6b907c98253c" "-" "-" -1 2022-04-21T04:01:32.450000Z "waf" "-" "-" "-" "-" "-" "-"
+http 2022-04-21T04:03:18.556782Z app/terraform-tips-dev-alb-web/450cd8175f4b3aad 20.124.133.132:56973 192.0.0.92:80 0.012 0.000 0.000 404 404 297 375 "GET http://52.194.163.12:80/.env HTTP/1.1" "Mozilla/5.0 (Linux; U; Android 4.4.2; en-US; HM NOTE 1W Build/KOT49H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 UCBrowser/11.0.5.850 U3/0.8.0 Mobile Safari/534.30" - - arn:aws:elasticloadbalancing:ap-northeast-1:535401992203:targetgroup/terraform-tips-dev-tg-ec2-web/3862851be6f386d7 "Root=1-6260d786-566030c5107753ef55788fe5" "-" "-" 99 2022-04-21T04:03:18.543000Z "waf,forward" "-" "-" "192.0.0.92:80" "404" "-" "-"
+http 2022-04-21T04:03:18.880449Z app/terraform-tips-dev-alb-web/450cd8175f4b3aad 20.124.133.132:57412 192.0.0.108:80 0.003 0.002 0.000 200 200 383 324 "POST http://52.194.163.12:80/ HTTP/1.1" "Mozilla/5.0 (Linux; U; Android 4.4.2; en-US; HM NOTE 1W Build/KOT49H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 UCBrowser/11.0.5.850 U3/0.8.0 Mobile Safari/534.30" - - arn:aws:elasticloadbalancing:ap-northeast-1:535401992203:targetgroup/terraform-tips-dev-tg-ec2-web/3862851be6f386d7 "Root=1-6260d786-58c2fb9a174786af31333347" "-" "-" 99 2022-04-21T04:03:18.875000Z "waf,forward" "-" "-" "192.0.0.108:80" "200" "-" "-"
+```
+
+# SSM instances
+<img width="1591" alt="スクリーンショット 2022-04-21 13 02 41" src="https://user-images.githubusercontent.com/85344890/164381724-efedb39f-35cd-474e-b985-6bbd43bb6f69.png">
