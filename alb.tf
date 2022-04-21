@@ -36,22 +36,22 @@ resource "aws_lb_listener_rule" "forward" {
   }
 
   condition {
-      path_pattern{
-        values = ["/*"]
-      }
+    path_pattern {
+      values = ["/*"]
+    }
   }
 }
 
 resource "aws_lb_target_group" "ec2_web" {
-  name                 = "${local.system_prefix}-tg-ec2-web"
-  port                 = 80
-  protocol             = "HTTP"
-  target_type          = "instance"
-  vpc_id               = aws_vpc.main.id
-  tags                 = merge(local.tags, map("Name", "${local.system_prefix}-tg-ec2-web"))
+  name        = "${local.system_prefix}-tg-ec2-web"
+  port        = 80
+  protocol    = "HTTP"
+  target_type = "instance"
+  vpc_id      = aws_vpc.main.id
+  tags        = merge(local.tags, map("Name", "${local.system_prefix}-tg-ec2-web"))
   health_check {
-    protocol            = "HTTP"
-    path                = var.health_check_path
+    protocol = "HTTP"
+    path     = var.health_check_path
   }
 }
 

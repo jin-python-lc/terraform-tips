@@ -4,8 +4,8 @@ resource "aws_eip" "natgateway_a" {
 }
 
 resource "aws_eip" "natgateway_c" {
-  vpc   = true
-  tags  = merge(local.tags, map("Name", "${local.system_prefix}-ngw-c"))
+  vpc  = true
+  tags = merge(local.tags, map("Name", "${local.system_prefix}-ngw-c"))
 }
 
 resource "aws_nat_gateway" "main_a" {
@@ -23,10 +23,10 @@ resource "aws_nat_gateway" "main_c" {
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
   route {
-    cidr_block     = "0.0.0.0/0"
-    gateway_id     = aws_internet_gateway.igw.id
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
   }
-  tags   = merge(local.tags, map("Name", "${local.system_prefix}-rtb-pub"))
+  tags = merge(local.tags, map("Name", "${local.system_prefix}-rtb-pub"))
 }
 
 resource "aws_route_table" "protected_a" {
@@ -35,7 +35,7 @@ resource "aws_route_table" "protected_a" {
     cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.main_a.id
   }
-  tags   = merge(local.tags, map("Name", "${local.system_prefix}-rtb-prt-a"))
+  tags = merge(local.tags, map("Name", "${local.system_prefix}-rtb-prt-a"))
 }
 
 resource "aws_route_table" "protected_c" {
@@ -44,18 +44,12 @@ resource "aws_route_table" "protected_c" {
     cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.main_c.id
   }
-  tags   = merge(local.tags, map("Name", "${local.system_prefix}-rtb-prt-c"))
+  tags = merge(local.tags, map("Name", "${local.system_prefix}-rtb-prt-c"))
 }
 
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
   tags   = merge(local.tags, map("Name", "${local.system_prefix}-rtb-prv"))
-}
-
-resource "aws_route" "public" {
-  destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.igw.id
-  route_table_id         = aws_route_table.public.id
 }
 
 resource "aws_route_table_association" "public_a" {
@@ -91,17 +85,87 @@ resource "aws_route_table_association" "private_c" {
 resource "aws_network_acl" "public" {
   vpc_id     = aws_vpc.main.id
   subnet_ids = [aws_subnet.public_a.id, aws_subnet.public_c.id]
-  tags       = merge(local.tags, map("Name", "${local.system_prefix}-acl-pub"))
+  ingress {
+    protocol   = -1
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
+  egress {
+    protocol   = -1
+    rule_no    = 101
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
+  tags = merge(local.tags, map("Name", "${local.system_prefix}-acl-pub"))
 }
 
-resource "aws_network_acl" "protected" {
+resource "aws_network_acl" "protected_a" {
   vpc_id     = aws_vpc.main.id
-  subnet_ids = [aws_subnet.protected_a.id, aws_subnet.protected_c.id]
-  tags       = merge(local.tags, map("Name", "${local.system_prefix}-acl-prt"))
+  subnet_ids = [aws_subnet.protected_a.id]
+  ingress {
+    protocol   = -1
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = aws_subnet.public_a.cidr_block
+    from_port  = 0
+    to_port    = 0
+  }
+  egress {
+    protocol   = -1
+    rule_no    = 101
+    action     = "allow"
+    cidr_block = aws_subnet.public_a.cidr_block
+    from_port  = 0
+    to_port    = 0
+  }
+  tags = merge(local.tags, map("Name", "${local.system_prefix}-acl-prt-a"))
+}
+
+resource "aws_network_acl" "protected_c" {
+  vpc_id     = aws_vpc.main.id
+  subnet_ids = [aws_subnet.protected_c.id]
+  ingress {
+    protocol   = -1
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = aws_subnet.public_c.cidr_block
+    from_port  = 0
+    to_port    = 0
+  }
+  egress {
+    protocol   = -1
+    rule_no    = 101
+    action     = "allow"
+    cidr_block = aws_subnet.public_c.cidr_block
+    from_port  = 0
+    to_port    = 0
+  }
+  tags = merge(local.tags, map("Name", "${local.system_prefix}-acl-prt"))
 }
 
 resource "aws_network_acl" "private" {
   vpc_id     = aws_vpc.main.id
   subnet_ids = [aws_subnet.private_a.id, aws_subnet.private_c.id]
-  tags       = merge(local.tags, map("Name", "${local.system_prefix}-acl-prv"))
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = aws_subnet.protected_a.cidr_block
+    from_port  = 3306
+    to_port    = 3306
+  }
+  egress {
+    protocol   = "tcp"
+    rule_no    = 101
+    action     = "allow"
+    cidr_block = aws_subnet.protected_c.cidr_block
+    from_port  = 3306
+    to_port    = 3306
+  }
+  tags = merge(local.tags, map("Name", "${local.system_prefix}-acl-prv"))
 }

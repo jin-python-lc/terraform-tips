@@ -40,7 +40,7 @@ web_access_src_cidr = [
   "0.0.0.0/0"
 ]
 ec2 = {
-  ami_id             = "ami-0d09f8d9512d684cb"
+  ami_id             = "ami-0a3d21ec6281df8cb"
   http_port          = 80
   web_count          = 2
   web_instance_type  = "t2.micro"

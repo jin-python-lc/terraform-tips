@@ -4,8 +4,8 @@ resource "aws_security_group" "alb_web" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port   = 80
-    to_port     = 80
+    from_port   = var.ec2.http_port
+    to_port     = var.ec2.http_port
     protocol    = "tcp"
     cidr_blocks = var.web_access_src_cidr
   }
@@ -32,21 +32,6 @@ resource "aws_security_group" "ec2_web" {
     security_groups = [aws_security_group.alb_web.id]
   }
 
-  ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    security_groups = [aws_security_group.maintenance.id]
-  }
-
-  ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -55,29 +40,6 @@ resource "aws_security_group" "ec2_web" {
   }
 
   tags = merge(local.tags, map("Name", "${local.system_prefix}-ec2-web"))
-}
-
-resource "aws_security_group" "maintenance" {
-  name        = "${local.system_prefix}-ec2-maintenance-sg"
-  description = "${local.system_prefix}-ec2-maintenance-sg"
-  vpc_id      = aws_vpc.main.id
-
-  ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = merge(local.tags, map("Name", "${local.system_prefix}-ec2-maintenance"))
 }
 
 resource "aws_security_group" "rds" {
@@ -100,4 +62,20 @@ resource "aws_security_group" "rds" {
   }
 
   tags = merge(local.tags, map("Name", "${local.system_prefix}-rds-sg"))
+}
+
+resource "aws_security_group" "vpce" {
+  name        = "${local.system_prefix}-ec2-vpce-sg"
+  description = "${local.system_prefix}-ec2-vpce-sg"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    description = "HTTPS"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [aws_subnet.protected_a.cidr_block, aws_subnet.protected_c.cidr_block]
+  }
+
+  tags = merge(local.tags, map("Name", "${local.system_prefix}-ec2-vpce"))
 }
