@@ -3,8 +3,8 @@
 .
 ├── Makefile
 ├── builder
-│   ├── build.yml
-│   └── dryrun.yml
+│   ├── build.yml   #Codebuild用
+│   └── dryrun.yml  #Codebuild用
 ├── config
 │   ├── dev
 │   │   ├── ap-northeast-1.backend
